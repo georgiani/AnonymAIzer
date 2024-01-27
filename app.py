@@ -55,8 +55,8 @@ def show_bb(img, preds, score_lim = 0.3, chosen_blur =None):
                 
                 # This is needed inside the folder where the application
                 #   is run from
-                font = ImageFont.truetype("Roboto-Light.ttf", 20)
-                pildraw.text((xmin, ymin), str(boxes_cnt), font=font, align ="left", fill="black") 
+                font = ImageFont.truetype("Roboto-Light.ttf", 50)
+                pildraw.text((xmin, ymin), str(boxes_cnt), font=font, align ="left", fill="red") 
 
             # Used for the list of checkboxes
             boxes_cnt += 1
@@ -96,7 +96,7 @@ def predict(img, confidence):
         #   and generate che checkboxes
         return [
             with_bb, 
-            gr.Slider(0, 1, value=0.5, label="Confidence", visible=True),
+            gr.update(visible=True),
             gr.CheckboxGroup([i for i in range(bbs)], interactive=True)
         ]
 
@@ -142,8 +142,6 @@ with gr.Blocks() as demo:
     # Confidence slider
     confid = gr.Slider(0, 1, value=0.5, label="Confidence", visible=False)
 
-    # TODO: On hover bring to front and make the selected bb bigger
-    # on the picture in output
     pred_list = gr.CheckboxGroup([], interactive=True)
 
     # Prediction Click Event
